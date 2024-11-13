@@ -18,7 +18,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 // Replace with your public repository URL
-                git url: 'https://github.com/your-public-repo.git', branch: 'main'
+                git url: 'https://github.com/ofenloch/hello-world.git', branch: 'main'
             }
         }
 
