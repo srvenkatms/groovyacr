@@ -22,13 +22,20 @@ pipeline {
             }
          }
 
-        stage('Checkout Code') {
+        stage('Fetch Code') {
             steps {
-                // Replace with your public repository URL
-                //git url: 'https://github.com/ofenloch/hello-world.git', branch: 'main'
-                sh 'git clone https://github.com/ofenloch/hello-world.git'
-                sh 'echo "Workspace contents:"'
-                sh 'ls -R /var/lib/jenkins/workspace/acrpipeline/'
+                script {
+                    // Check if the 'hello-world' directory exists and handle accordingly
+                    if (fileExists('hello-world')) {
+                        echo 'Repository already exists. Pulling latest changes.'
+                        dir('hello-world') {
+                            sh 'git pull'
+                        }
+                    } else {
+                        echo 'Cloning repository.'
+                        sh 'git clone https://github.com/ofenloch/hello-world.git'
+                    }
+                }
             }
         }
         
