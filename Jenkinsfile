@@ -57,17 +57,5 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            // Cleanup after build
-            echo 'Cleaning up local Docker images...'
-            sh "docker rmi ${env.ACR_LOGIN_SERVER}/${env.DOCKER_IMAGE_NAME}:${env.DOCKER_IMAGE_TAG} || true"
-        }
-        success {
-            echo 'Docker image pushed successfully!'
-        }
-        failure {
-            echo 'Build or push failed.'
-        }
-    }
+    
 }
