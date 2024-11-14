@@ -60,9 +60,11 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                // Build Docker image
-                if (!fileExists('hello-world')) {
-                    sh "docker build -t ${env.ACR_LOGIN_SERVER}/${env.ACR_REPO}/${env.DOCKER_IMAGE_NAME}:${env.DOCKER_IMAGE_TAG} ./hello-world"
+                script{
+                    // Build Docker image
+                    if (!fileExists('hello-world')) {
+                        sh "docker build -t ${env.ACR_LOGIN_SERVER}/${env.ACR_REPO}/${env.DOCKER_IMAGE_NAME}:${env.DOCKER_IMAGE_TAG} ./hello-world"
+                    }
                 }
             }
         }
