@@ -26,6 +26,8 @@ pipeline {
             steps {
                 // Replace with your public repository URL
                 git url: 'https://github.com/ofenloch/hello-world.git', branch: 'main'
+                sh 'echo "Workspace contents:"'
+                sh 'ls -R /var/lib/jenkins/workspace/acrpipeline/'
             }
         }
         
