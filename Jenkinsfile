@@ -9,7 +9,7 @@ pipeline {
     AZURE_CLIENT_ID = credentials('AZURE_CLIENT_ID')
     AZURE_CLIENT_SECRET = credentials('AZURE_CLIENT_SECRET')
     AZURE_TENANT_ID = credentials('AZURE_TENANT_ID')
-
+    AZURE_SUBSCRIPTION_ID = credentials('AZURE_SUBSCRIPTION_ID')
     ACR_USERNAME = credentials('ACR_USERNAME')  // Store ACR username as a Jenkins credential
     ACR_PASSWORD = credentials('ACR_PASSWORD')
     ACR_REPO = "helloworld"
