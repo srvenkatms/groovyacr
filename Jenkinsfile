@@ -16,13 +16,19 @@ pipeline {
   }
 
     stages {
+        stage('List Files in Workspace') {
+            steps {
+                 sh 'ls -R'
+            }
+         }
+
         stage('Checkout Code') {
             steps {
                 // Replace with your public repository URL
                 git url: 'https://github.com/ofenloch/hello-world.git', branch: 'main'
             }
         }
-
+        
         stage('Login to Azure') {
             steps {
                 // Log in to Azure CLI
