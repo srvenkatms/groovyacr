@@ -25,7 +25,8 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 // Replace with your public repository URL
-                git url: 'https://github.com/ofenloch/hello-world.git', branch: 'main'
+                //git url: 'https://github.com/ofenloch/hello-world.git', branch: 'main'
+                sh 'git clone https://github.com/ofenloch/hello-world.git'
                 sh 'echo "Workspace contents:"'
                 sh 'ls -R /var/lib/jenkins/workspace/acrpipeline/'
             }
