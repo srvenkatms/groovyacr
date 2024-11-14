@@ -9,7 +9,7 @@ pipeline {
     AZURE_CLIENT_ID = credentials('AZURE_CLIENT_ID')
     AZURE_CLIENT_SECRET = credentials('AZURE_CLIENT_SECRET')
     AZURE_TENANT_ID = credentials('AZURE_TENANT_ID')
-    AZURE_SUBSCRIPTION_ID = credentials(' AZURE_SUBSCRIPTION_ID') // Store subscription ID as a Jenkins credential
+    AZURE_SUBSCRIPTION_ID = credentials('AZURE_SUBSCRIPTION_ID') // Store subscription ID as a Jenkins credential
     ACR_USERNAME = credentials('ACR_USERNAME')  // Store ACR username as a Jenkins credential
     ACR_PASSWORD = credentials('ACR_PASSWORD')
   }
@@ -45,14 +45,14 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 // Build Docker image
-                sh "docker build -t ${ACR_LOGIN_SERVER}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG} ."
+                sh "docker build -t ${env.ACR_LOGIN_SERVER}/${env.DOCKER_IMAGE_NAME}:${env.DOCKER_IMAGE_TAG} ."
             }
         }
 
         stage('Push Docker Image') {
             steps {
                 // Push Docker image to ACR
-                sh "docker push ${ACR_LOGIN_SERVER}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}"
+                sh "docker push ${env.ACR_LOGIN_SERVER}/${env.DOCKER_IMAGE_NAME}:${env.DOCKER_IMAGE_TAG}"
             }
         }
     }
@@ -61,7 +61,7 @@ pipeline {
         always {
             // Cleanup after build
             echo 'Cleaning up local Docker images...'
-            sh "docker rmi ${ACR_LOGIN_SERVER}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG} || true"
+            sh "docker rmi ${env.ACR_LOGIN_SERVER}/${env.DOCKER_IMAGE_NAME}:${env.DOCKER_IMAGE_TAG} || true"
         }
         success {
             echo 'Docker image pushed successfully!'
