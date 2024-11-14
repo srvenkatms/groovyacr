@@ -41,10 +41,16 @@ pipeline {
 
         stage('Login to ACR') {
             steps {
-                // Load and call the Docker login script with username and password
                 script {
-                    def dockerLogin = load 'dockerLogin.groovy'
-                    dockerLogin.loginToDockerRegistry(env.ACR_NAME, env.ACR_USERNAME, env.ACR_PASSWORD)
+                    // Inline version of the dockerLogin.groovy script
+                    def loginToDockerRegistry = { acrName, acrUsername, acrPassword ->
+                        def acrLoginServer = "${acrName}.azurecr.io"
+                        echo "Logging in to Azure Container Registry: ${acrLoginServer} using ACR credentials."
+                        sh "echo ${acrPassword} | docker login ${acrLoginServer} -u ${acrUsername} --password-stdin"
+                    }
+
+                    // Call the login function
+                    loginToDockerRegistry(env.ACR_NAME, env.ACR_USERNAME, env.ACR_PASSWORD)
                 }
             }
         }
